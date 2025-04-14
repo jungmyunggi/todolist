@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Header } from "@/components/home/Header";
 import { UserProvider } from "@/components/auth/UserProvider";
+import { FloatingButton } from "@/components/floatingButton/FloatingButton";
+import { AddButton } from "@/components/floatingButton/AddButton";
+import { UpButton } from "@/components/floatingButton/UpButton";
+import { ModalLayout } from "@/components/modal/ModalLayout";
 const geistSans = Geist({
     variable: "--font-geist-sans",
     subsets: ["latin"],
@@ -27,7 +32,20 @@ export default function RootLayout({
             <body
                 className={`${geistSans.variable} ${geistMono.variable} antialiased`}
             >
-                <UserProvider>{children}</UserProvider>
+                <UserProvider>
+                    <div className="flex flex-col gap-4 items-center h-full bg-gray-100 p-5 overflow-y-scroll">
+                        {/* header */}
+                        <Header />
+                        {/* floating button */}
+                        <FloatingButton>
+                            <AddButton />
+                            <UpButton />
+                        </FloatingButton>
+                        {/* modal */}
+                        <ModalLayout />
+                        {children}
+                    </div>
+                </UserProvider>
             </body>
         </html>
     );
