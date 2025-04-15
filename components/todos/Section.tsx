@@ -7,8 +7,9 @@ type Props = {
     todos: TodoType[];
     color: string;
     status: "todo" | "inprogress" | "done";
+    isImportant?: boolean;
 };
-export function Section({ todos, color, status }: Props) {
+export function Section({ todos, color, status, isImportant }: Props) {
     const updateItem = useItemStore((state) => state.updateItemId);
     const itemId = useItemStore((state) => state.itemId);
     const handleUpdateItem = (id: string) => {
@@ -41,6 +42,7 @@ export function Section({ todos, color, status }: Props) {
                                 item={todo}
                                 color={color}
                                 status={status}
+                                isImportant={isImportant}
                             />
                         </li>
                     );

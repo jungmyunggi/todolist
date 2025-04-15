@@ -5,6 +5,7 @@ import { ISODateToKoreanDate } from "@/lib/utils";
 import { useItemStore } from "@/store/useItemStore";
 import { Ellipsis } from "lucide-react";
 import { deleteTodo, updateImportant } from "@/action/todo";
+import toast from "react-hot-toast";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -15,24 +16,26 @@ const bgColorMap = {
     rose: "bg-rose-100",
     blue: "bg-blue-100",
     emerald: "bg-emerald-100",
+    yellow: "bg-yellow-100",
 };
 type Props = {
     item: TodoType;
     color: string;
     status: "todo" | "inprogress" | "done";
+    isImportant?: boolean;
 };
-export function TodoItem({ item, color, status }: Props) {
+export function TodoItem({ item, color, status, isImportant }: Props) {
     const itemId = useItemStore((state) => state.itemId);
     const isActive = itemId === item.id;
     const handleDelete = async (e: React.MouseEvent<HTMLDivElement>) => {
         e.stopPropagation();
         await deleteTodo(item.id);
-        alert("선택하신 일정이 삭제되었습니다");
+        toast("선택하신 일정이 삭제되었습니다");
     };
     const handleImportant = async (e: React.MouseEvent<HTMLDivElement>) => {
         e.stopPropagation();
         await updateImportant(item.id, !item.isImportant);
-        alert(
+        toast(
             item.isImportant
                 ? "중요한 일정에서 삭제되었습니다"
                 : "중요한 일정에 추가되었습니다"
@@ -53,12 +56,18 @@ export function TodoItem({ item, color, status }: Props) {
             <div className="flex justify-between">
                 <p
                     className={clsx(
-                        "text-bold",
+                        "text-bold flex gap-2 items-center",
                         status === "done" && "line-through"
                     )}
                 >
                     {item.title}
+                    {isImportant && (
+                        <span className="text-xs text-gray-400">
+                            {item.status.toUpperCase()}에서 가져옴
+                        </span>
+                    )}
                 </p>
+
                 <DropdownMenu>
                     <DropdownMenuTrigger
                         className={
