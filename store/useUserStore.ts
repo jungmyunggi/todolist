@@ -10,8 +10,8 @@ type Action = {
 
 export const useUserStore = create<State & Action>((set) => ({
     user: {
-        id: "",
-        userName: "",
+        id: undefined,
+        userName: undefined,
     },
     updateUser: (user) => set(() => ({ user })),
 }));
