@@ -9,6 +9,7 @@ import { SubmitButon } from "./SubmitButton";
 import { SignupSchema } from "@/schema/auth";
 import { ChangeEvent, useActionState, useEffect } from "react";
 import { ErrorMessage } from "./ErrorMessage";
+import toast from "react-hot-toast";
 export const SignupForm = () => {
     const [error, action] = useActionState(signup, undefined);
     const { errors, vaildateField } =
@@ -20,7 +21,7 @@ export const SignupForm = () => {
     };
     useEffect(() => {
         if (error) {
-            alert(error.errorMessage);
+            toast(error.errorMessage);
         }
     }, [error]);
 

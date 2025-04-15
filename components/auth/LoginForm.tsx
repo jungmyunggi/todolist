@@ -9,6 +9,7 @@ import { LoginTypes } from "@/type/auth";
 import { ChangeEvent, useActionState, useEffect } from "react";
 import { ErrorMessage } from "./ErrorMessage";
 import { login } from "@/action/login";
+import toast from "react-hot-toast";
 export function LoginForm() {
     const [error, action] = useActionState(login, undefined);
     const { errors, vaildateField } = useFormVaildate<LoginTypes>(LoginSchema);
@@ -20,7 +21,7 @@ export function LoginForm() {
 
     useEffect(() => {
         if (error?.errorMessage) {
-            alert(error.errorMessage);
+            toast(error.errorMessage);
         }
     }, [error]);
 

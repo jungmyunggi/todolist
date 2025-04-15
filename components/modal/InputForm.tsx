@@ -9,6 +9,7 @@ import { addTodo } from "@/action/todo";
 import { useUserStore } from "@/store/useUserStore";
 import { useModalStore } from "@/store/useModalStore";
 import { redirect } from "next/navigation";
+import toast from "react-hot-toast";
 export function InputForm() {
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
@@ -50,6 +51,7 @@ export function InputForm() {
         if (!userId) redirect("/login");
         await addTodo(userId, newTodo);
         closeModal();
+        toast("일정이 생성되었습니다");
     };
 
     return (
